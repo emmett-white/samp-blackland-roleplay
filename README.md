@@ -28,11 +28,20 @@ Happy Pawning!
 
 ## Installation
 
+### Windows
 Simply install via terminal:
 
 ```bash
 git clone https://github.com/emmett-white/samp-blackland-roleplay
 cd samp-blackland-roleplay && sampctl p ensure && sampctl p build
+```
+
+### Linux
+Simply install via terminal:
+
+```bash
+git clone https://github.com/emmett-white/samp-blackland-roleplay
+cd samp-blackland-roleplay && sampctl p ensure --platform linux && sampctl p build
 ```
 
 ## Testing
