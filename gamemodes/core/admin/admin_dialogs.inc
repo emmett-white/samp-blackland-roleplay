@@ -7,18 +7,20 @@
 #endif
 #define _admin_dialogs_included
 
-/** Variables */
+// ---
+// Variables
+// ---
 static
     tmpActorSkinID[MAX_PLAYERS],
     adminCodeAttempts[MAX_PLAYERS];
 
-/** Dialogs */
+// ---
+// Dialogs
+// ---
 Dialog:DIALOG_AHELP(const playerid, response, listitem, string: inputtext[])
 {
     if (!response)
-    {
         return 1;
-    }
 
     Admin_ShowAdminCmdsOfLevel(playerid, listitem);
 
@@ -28,20 +30,14 @@ Dialog:DIALOG_AHELP(const playerid, response, listitem, string: inputtext[])
 Dialog:DIALOG_ACODE(const playerid, response, listitem, string: inputtext[])
 {
     if (!response)
-    {
-        Kick(playerid);
-        return 1;
-    }
+        return Kick(playerid);
 
     if (strval(inputtext) != Admin_GetCode(playerid))
     {
         ++adminCodeAttempts[playerid];
 
         if (adminCodeAttempts[playerid] == MAX_LOGIN_ATTEMPTS)
-        {
-            Kick(playerid);
-            return 1;
-        }
+            return Kick(playerid);
 
         SendErrorMsg(playerid, "Pogresan kod!");
 
@@ -65,9 +61,7 @@ Dialog:DIALOG_ACODE(const playerid, response, listitem, string: inputtext[])
 Dialog:DIALOG_MAKELEADER(const playerid, response, listitem, string: inputtext[])
 {
     if (!response)
-    {
         return 1;
-    }
 
     static
         targetid,
@@ -88,10 +82,7 @@ Dialog:DIALOG_MAKELEADER(const playerid, response, listitem, string: inputtext[]
         case 0:
         {
             if (!Organization_IsPlayerLeader(targetid))
-            {
-                SendErrorMsg(playerid, "Taj igrac nije lider!");
-                return 1;
-            }
+                return SendErrorMsg(playerid, "Taj igrac nije lider!");
 
             Organization_SetPlayerLeader(targetid, 0);
             Account_SetPlayerSkin(targetid, 1);
@@ -102,10 +93,7 @@ Dialog:DIALOG_MAKELEADER(const playerid, response, listitem, string: inputtext[]
         case 1:
         {
             if (Organization_IsPlayerLeader(targetid) && Organization_GetPlayerOrgID(targetid) == Organization_LSPD())
-            {
-                SendErrorMsg(playerid, "Taj igrac je vec lider te organizacije!");
-                return 1;
-            }
+                return SendErrorMsg(playerid, "Taj igrac je vec lider te organizacije!");
 
             Organization_SetPlayerOrgID(targetid, Organization_LSPD(), true);
             Account_SetPlayerSkin(targetid, 283);
@@ -120,9 +108,7 @@ Dialog:DIALOG_MAKELEADER(const playerid, response, listitem, string: inputtext[]
 Dialog:DIALOG_ACTORSKIN(const playerid, response, listitem, string: inputtext[])
 {
     if (!response)
-    {
         return 1;
-    }
 
     if (!(1 <= strval(string: inputtext) <= 299))
     {
@@ -153,9 +139,7 @@ Dialog:DIALOG_ACTORSKIN(const playerid, response, listitem, string: inputtext[])
 Dialog:DIALOG_ACTORANIM(const playerid, response, listitem, string: inputtext[])
 {
     if (!response)
-    {
         return 1;
-    }
 
     if (!(0 <= strval(string: inputtext) <= 4))
     {

@@ -42,10 +42,7 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
     else if (playertextid == PlayerText: Dealer_ReturnTextDraw(playerid, 8))
     {
         if (GetPlayerMoney(playerid) < 50)
-        {
-            SendErrorMsg(playerid, "Nemate dovoljno novca!");
-            return 1;
-        }
+            return SendErrorMsg(playerid, "Nemate dovoljno novca!");
 
         Account_SetPlayerDrugs(playerid, (Account_GetPlayerDrugs(playerid) + 1));
         Account_SetPlayerMoney(playerid, (Account_GetPlayerMoney(playerid) - 50));
@@ -58,10 +55,7 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
     else if (playertextid == PlayerText: Dealer_ReturnTextDraw(playerid, 9))
     {
         if (GetPlayerMoney(playerid) < 65)
-        {
-            SendErrorMsg(playerid, "Nemate dovoljno novca!");
-            return 1;
-        }
+            return SendErrorMsg(playerid, "Nemate dovoljno novca!");
 
         Account_SetPlayerMoney(playerid, (Account_GetPlayerMoney(playerid) - 65));
         
@@ -73,10 +67,7 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
     else if (playertextid == PlayerText: Dealer_ReturnTextDraw(playerid, 10))
     {
         if (GetPlayerMoney(playerid) < 50)
-        {
-            SendErrorMsg(playerid, "Nemate dovoljno novca!");
-            return 1;
-        }
+            return SendErrorMsg(playerid, "Nemate dovoljno novca!");
 
         Account_SetPlayerWeed(playerid, (Account_GetPlayerWeed(playerid) + 1));
         Account_SetPlayerMoney(playerid, (Account_GetPlayerMoney(playerid) - 25));

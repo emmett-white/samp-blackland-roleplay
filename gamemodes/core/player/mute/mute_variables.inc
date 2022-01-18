@@ -7,26 +7,28 @@
 #endif
 #define _mute_variables_included
 
-/** Variables */
+// ---
+// Variables
+// ---
 static mutedTime[MAX_PLAYERS];
 
-/** Timer */
+// ---
+// Timer
+// ---
 PTASK__ Mute_TimerDown[60000](playerid)
 {
     if (Mute_GetTime(playerid))
-    {
         Mute_SetTime(playerid, (Mute_GetTime(playerid) - 1));
-    }
 
     if (!Mute_GetTime(playerid))
-    {
         return 0;
-    }
 
     return 1;
 }
 
-/** Get/Set Functions */
+// ---
+// Get/Set functions
+// ---
 stock Mute_GetTime(const playerid) return mutedTime[playerid];
 stock Mute_SetTime(const playerid, const time)
 {
@@ -44,19 +46,13 @@ stock Mute_SetTime(const playerid, const time)
 stock Mute_Player(const adminid, const targetid, const time, const string: reason[])
 {
     if (targetid == adminid)
-    {
         return SendErrorMsg(adminid, "Ne mozete mutirati sami sebe!");
-    }
 
     if (Mute_GetTime(targetid))
-    {
         return SendErrorMsgF(adminid, "Igrac %s je vec mutiran!", ReturnPlayerName(targetid));
-    }
 
     if (!(1 <= time <= 9999))
-    {
         return SendErrorMsg(adminid, "Ne mozete ispod 1 i iznad 9999 minuta!");
-    }
 
     Mute_SetTime(targetid, time);
     SendInfoMsgToAllF("Admin %s je mutirao igraca %s na %d minut/a zbog %s.",
@@ -69,9 +65,7 @@ stock Mute_Player(const adminid, const targetid, const time, const string: reaso
 stock Mute_Remove(const adminid, const targetid)
 {
     if (!Mute_GetTime(targetid))
-    {
         return SendErrorMsgF(adminid, "Igrac %s nije mutiran!", ReturnPlayerName(targetid));
-    }
 
     Mute_SetTime(targetid, 0);
 

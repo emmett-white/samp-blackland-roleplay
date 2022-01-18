@@ -50,9 +50,7 @@ hook OnGameModeInit()
 hook OnPlayerDisconnect(playerid, reason)
 {
     if (Admin_GetVehicleSpawned(playerid))
-    {
         Admin_DestroyVehicle(playerid);
-    }
 
     static disconnectReason[3][] =
     {

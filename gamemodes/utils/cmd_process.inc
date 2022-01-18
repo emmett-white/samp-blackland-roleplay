@@ -17,9 +17,7 @@
 public OnPlayerCommandPerformed(playerid, cmd[], params[], result, flags)
 {
 	if (result == -1)
-	{
 		return SendErrorMsgF(playerid, "Komanda /%s ne postoji!", cmd);
-	}
 
 	return 1;
 }

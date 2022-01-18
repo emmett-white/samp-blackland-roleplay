@@ -7,12 +7,16 @@
 #endif
 #define _dealer_ui_included
 
-/** Variables */
+// ---
+// Variables
+// ---
 static
     PlayerText: dealerTextDraw[MAX_PLAYERS][19] = {PlayerText: INVALID_PLAYER_TEXT_DRAW,...},
     dealerStatus[MAX_PLAYERS];
 
-/** Functions */
+// ---
+// Functions
+// ---
 stock UI_DealerTextDrawCreated(const playerid) return dealerStatus[playerid];
 stock UI_CreateDealerTextDraws(const playerid, bool: status = true)
 {
@@ -51,9 +55,7 @@ stock UI_CreateDealerTextDraws(const playerid, bool: status = true)
     PlayerTextDrawSetPreviewRot(playerid, dealerTextDraw[playerid][1], -20.000000, 0.000000, 15.000000, 1.000000);
 
     foreach (new id: Iter_Dealers)
-    {
         dealerTextDraw[playerid][2] = va_CreatePlayerTextDraw(playerid, 197.500000, 103.511062, "DILER - %s", dealerName[Dealer_NearbyID(playerid)]);
-    }
     PlayerTextDrawLetterSize(playerid, dealerTextDraw[playerid][2], 0.180999, 1.145777);
     PlayerTextDrawTextSize(playerid, dealerTextDraw[playerid][2], 0.000000, 623.000000);
     PlayerTextDrawAlignment(playerid, dealerTextDraw[playerid][2], 2);
@@ -226,9 +228,7 @@ stock UI_CreateDealerTextDraws(const playerid, bool: status = true)
     PlayerTextDrawSetProportional(playerid, dealerTextDraw[playerid][18], 1);
 
     for (new i = 0; i < 19; ++i)
-    {
         PlayerTextDrawShow(playerid, PlayerText: dealerTextDraw[playerid][i]);
-    }
 
     SelectTextDraw(playerid, MAIN_COLOR_HEX);
     dealerStatus[playerid] = 1;

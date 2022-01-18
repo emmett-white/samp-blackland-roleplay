@@ -10,18 +10,14 @@
 acmd:[3]offban(playerid, const string: params[])
 {
     if (!Admin_GetDutyStatus(playerid))
-    {
         return SendErrorMsg(playerid, "Morate biti na admin duznosti (/aduty)!");
-    }
     
     static
         string: targetname[MAX_PLAYER_NAME],
         string: reason[MAX_REASON_LENGTH];
 
     if (sscanf(string: params, "s[25]s["#MAX_REASON_LENGTH"]", string: targetname, string: reason))
-    {
         return SendSyntaxMsg(playerid, "/offban [ime igraca] [razlog]");
-    }
 
     Ban_OffPlayer(string: targetname, playerid, string: reason);
 

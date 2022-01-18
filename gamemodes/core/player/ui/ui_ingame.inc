@@ -7,7 +7,9 @@
 #endif
 #define _ui_ingame_included
 
-/** Variables */
+// ---
+// Variables
+// ---
 static
     PlayerText: ingameTextDraw[MAX_PLAYERS][8] = {PlayerText: INVALID_PLAYER_TEXT_DRAW,...},
     PlayerBar: ingameBarPlayers[MAX_PLAYERS] = {PlayerBar: INVALID_PLAYER_BAR_ID,...},
@@ -24,7 +26,9 @@ static gRandomMessage[][] = {
     "~y~INFO: ~w~Ukoliko se ne mozete snaci na serveru kucajte ~r~/gps~w~."
 };
 
-/** Hooks */
+// ---
+// Hooks
+// ---
 hook OnPlayerConnect(playerid)
 {
     UI_CreateInGameTextDraws(playerid, .create = true, .show = false);
@@ -42,7 +46,9 @@ hook OnPlayerDisconnect(playerid, reason)
     return Y_HOOKS_CONTINUE_RETURN_1;
 }
 
-/** Functions */
+// ---
+// Functions
+// ---
 stock UI_CreateInGameTextDraws(const playerid, bool: status = true, bool: create, bool: show)
 {
     if (!status)
@@ -155,9 +161,7 @@ stock UI_CreateInGameTextDraws(const playerid, bool: status = true, bool: create
     if (show)
     {
         for (new i = 0; i < 8; ++i)
-        {
             PlayerTextDrawShow(playerid, PlayerText: ingameTextDraw[playerid][i]);
-        }
 
         va_PlayerTextDrawSetString(playerid, PlayerText: ingameTextDraw[playerid][4], "~y~ZLATO: ~w~%dG", Account_GetPlayerGold(playerid));
         va_PlayerTextDrawSetString(playerid, PlayerText: ingameTextDraw[playerid][5], "~b~LEVEL: ~w~%d", Account_GetPlayerLevel(playerid));
@@ -199,12 +203,8 @@ stock UI_GetMaxRecord()
     );
 
     if (cache_num_rows())
-    {
         for (new i; i < cache_num_rows(); ++i)
-        {
             maxConnectedPlayers = i;
-        }
-    }
 
     return (maxConnectedPlayers + 1);
 }
@@ -221,14 +221,10 @@ PTASK__ UI_TimeDateTimer[1000](playerid)
     PlayerTextDrawSetString(playerid, PlayerText: ingameTextDraw[playerid][0], ts_format);
 
     if (IsPlayerInAnyVehicle(playerid))
-    {
-		GetVehicleZAngle(GetPlayerVehicleID(playerid), Float: angle);
-    }
+        GetVehicleZAngle(GetPlayerVehicleID(playerid), Float: angle);
 
 	else
-    {
-		GetPlayerFacingAngle(playerid, Float: angle);
-    }
+        GetPlayerFacingAngle(playerid, Float: angle);
 
     va_PlayerTextDrawSetString(playerid, PlayerText: ingameTextDraw[playerid][2], "%.0f|", (360 - Float: angle));
 }

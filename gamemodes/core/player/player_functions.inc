@@ -7,20 +7,22 @@
 #endif
 #define _player_functions_included
 
-/** Variables */
+// ---
+// Variables
+// ---
 static
     Text3D: gPlayerRankLabel[MAX_PLAYERS],
 
     BitArray: Bit_PlayerSpawned<MAX_PLAYERS>,
     BitArray: Bit_HouseLocated<MAX_PLAYERS>;
 
-/** Functions */
+// ---
+// Functions
+// ---
 stock Player_ClearChat(const playerid, const lines)
 {
     for (new i = 0; i < lines; ++i)
-    {
         SendClientMessage(playerid, -1, " ");
-    }
 
     SendServerMsg(playerid, "Chat je ociscen.");
     SendInfoMsg(playerid, "https://discord.gg/"DISCORD_INVITE_LINK"");
@@ -31,12 +33,8 @@ stock Player_ClearChat(const playerid, const lines)
 stock GetPlayerID(const string: name[])
 {
 	foreach (new i: Player)
-    {
         if(strcmp(string: name, ReturnPlayerName(i), true) == 0)
-        {
             return i;
-        }
-	}
 
 	return -1;
 }
@@ -62,29 +60,19 @@ stock Player_SendRadiusMsg(Float: radi, playerid, const string: string[], c1, c2
                 tmpPosZ = (oldpPosZ -pPosZ);
                 
                 if(((tmpPosX < radi/16) && (tmpPosX > -radi/16)) && ((tmpPosY < radi/16) && (tmpPosY > -radi/16)) && ((tmpPosZ < radi/16) && (tmpPosZ > -radi/16)))
-                {
                     SendClientMessage(i, c1, string);
-                }
 
                 else if(((tmpPosX < radi/8) && (tmpPosX > -radi/8)) && ((tmpPosY < radi/8) && (tmpPosY > -radi/8)) && ((tmpPosZ < radi/8) && (tmpPosZ > -radi/8)))
-                {
                     SendClientMessage(i, c2, string);
-                }
 
                 else if(((tmpPosX < radi/4) && (tmpPosX > -radi/4)) && ((tmpPosY < radi/4) && (tmpPosY > -radi/4)) && ((tmpPosZ < radi/4) && (tmpPosZ > -radi/4)))
-                {
                     SendClientMessage(i, c3, string);
-                }
 
                 else if(((tmpPosX < radi/2) && (tmpPosX > -radi/2)) && ((tmpPosY < radi/2) && (tmpPosY > -radi/2)) && ((tmpPosZ < radi/2) && (tmpPosZ > -radi/2)))
-                {
                     SendClientMessage(i, c4, string);
-                }
 
                 else if(((tmpPosX < radi) && (tmpPosX > -radi)) && ((tmpPosY < radi) && (tmpPosY > -radi)) && ((tmpPosZ < radi) && (tmpPosZ > -radi)))
-                {
                     SendClientMessage(i, c5, string);
-                }
             }
 		}
 	}
@@ -109,9 +97,7 @@ stock Player_SetHouseCPStatus(const playerid, bool: status = true)
 stock Player_SetNewbieRank(const playerid)
 {
     if (!Admin_GetLevel(playerid) && Account_GetPlayerLevel(playerid) < 10)
-    {
         gPlayerRankLabel[playerid] = CreateDynamic3DTextLabel("NOVAJLIJA", X11_YELLOW, 0.0, 0.0, 0.0, Float: 30.0, playerid);
-    }
 
     return 1;
 }
@@ -120,14 +106,10 @@ stock Player_SetNewbieRank(const playerid)
 Dialog:DIALOG_LEAVEMONEY(const playerid, response, listitem, string: inputtext[])
 {
     if (!response)
-    {
         return 1;
-    }
 
     if (!(10 <= strval(string: inputtext) <= 100000))
-    {
         return SendErrorMsg(playerid, "Ne mozete ispod $10 i iznad $100.000!");
-    }
 
     Account_SetPlayerBankMoney(playerid, (Account_GetPlayerBankMoney(playerid) + strval(string: inputtext)));
     Account_SetPlayerMoney(playerid, (Account_GetPlayerMoney(playerid) - strval(string: inputtext)));
@@ -141,19 +123,13 @@ Dialog:DIALOG_LEAVEMONEY(const playerid, response, listitem, string: inputtext[]
 Dialog:DIALOG_TAKEMONEY(const playerid, response, listitem, string: inputtext[])
 {
     if (!response)
-    {
         return 1;
-    }
 
     if (!(10 <= strval(string: inputtext) <= 100000))
-    {
         return SendErrorMsg(playerid, "Ne mozete ispod $10 i iznad $100.000!");
-    }
 
     if (Account_GetPlayerBankMoney(playerid) < strval(string: inputtext))
-    {
         return SendErrorMsg(playerid, "Nemate toliko novca u banci!");
-    }
 
     Account_SetPlayerBankMoney(playerid, (Account_GetPlayerBankMoney(playerid) - strval(string: inputtext)));
     Account_SetPlayerMoney(playerid, (Account_GetPlayerMoney(playerid) + strval(string: inputtext)));
@@ -167,9 +143,7 @@ Dialog:DIALOG_TAKEMONEY(const playerid, response, listitem, string: inputtext[])
 Dialog:DIALOG_WINTER(const playerid, response, listitem, string: inputtext[])
 {
     if (!response)
-    {
         return 1;
-    }
 
     switch (listitem)
     {
@@ -210,10 +184,8 @@ Dialog:DIALOG_WINTER(const playerid, response, listitem, string: inputtext[])
 Dialog:DIALOG_HOUSEMENU(const playerid, response, listitem, string: inputtext[])
 {
     if (!response)
-    {
         return 1;
-    }
-
+    
     switch (listitem)
     {
         case 0:
@@ -256,15 +228,11 @@ Dialog:DIALOG_HOUSEHELP(const playerid, response, listitem, string: inputtext[])
 Dialog:DIALOG_HOUSEDESC(const playerid, response, listitem, string: inputtext[])
 {
     if (!response)
-    {
         return callcmd::kuca(playerid, "");
-    }
 
     new houseid = House_GetNearby(playerid);
     if (!strcmp(string: inputtext, House_GetDescription(houseid), false))
-    {
         return SendErrorMsg(playerid, "Ne mozete isti opis."), callcmd::kuca(playerid, "");
-    }
 
     House_SetDescription(houseid, string: inputtext);
 

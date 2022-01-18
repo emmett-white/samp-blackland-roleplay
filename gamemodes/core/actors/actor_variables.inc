@@ -7,7 +7,9 @@
 #endif
 #define _actor_variables_included
 
-/** Variables */
+// ---
+// Variables
+// ---
 const MAX_SERVER_ACTORS = (200);
 
 new
@@ -25,7 +27,9 @@ new
     
     Iterator: Iter_Actors<MAX_ACTORS>;
 
-/** Functions */
+// ---
+// Functions
+// ---
 stock Actor_Create(const playerid, const skin, const animation = 0)
 {
     new

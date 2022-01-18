@@ -10,9 +10,7 @@
 forward House_Load(); public House_Load()
 {
     if (!cache_num_rows())
-    {
         return 0;
-    }
 
     new
         String: str_format_label,

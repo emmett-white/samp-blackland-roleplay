@@ -18,10 +18,7 @@ stock Ban_CheckPlayerStatus(const playerid)
     );
 
     if (!cache_num_rows())
-    {
-        UI_CreateLoadingTextDraw(playerid, .connection = 1);
-        return 1;
-    }
+        return UI_CreateLoadingTextDraw(playerid, .connection = 1);
 
     static
         bannedAdmin[MAX_PLAYER_NAME],
@@ -51,16 +48,10 @@ stock Ban_OffPlayer(const string: name[], const adminid, const string: reason[] 
     );
 
     if (!cache_num_rows())
-    {
-        SendErrorMsgF(adminid, "Igrac %s ne postoji u bazi podataka!", string: name);
-        return 1;
-    }
+        return SendErrorMsgF(adminid, "Igrac %s ne postoji u bazi podataka!", string: name);
 
     if (IsPlayerConnected(GetPlayerID(string: name)))
-    {
-        SendErrorMsgF(adminid, "Igrac %s je online!", string: name);
-        return 1;
-    }
+        return SendErrorMsgF(adminid, "Igrac %s je online!", string: name);
 
     task_await(
         Task: MySQL_QueryS(
@@ -71,10 +62,7 @@ stock Ban_OffPlayer(const string: name[], const adminid, const string: reason[] 
     );
 
     if (cache_num_rows())
-    {
-        SendErrorMsgF(adminid, "Igrac %s je vec banovan!", string: name);
-        return 1;
-    }
+        return SendErrorMsgF(adminid, "Igrac %s je vec banovan!", string: name);
 
     new String: str_query_ban_insert = String: str_format(
         "INSERT INTO banned (banned_player, banned_admin, banned_reason) \
@@ -90,16 +78,10 @@ stock Ban_OffPlayer(const string: name[], const adminid, const string: reason[] 
 stock Ban_Player(const targetid, const adminid, const string: reason[] = "N/A")
 {
     if (targetid == adminid)
-    {
-        SendErrorMsg(adminid, "Ne mozete banovati samog sebe!");
-        return 1;
-    }
+        return SendErrorMsg(adminid, "Ne mozete banovati samog sebe!");
 
     if (Admin_GetLevel(targetid) && Admin_GetLevel(adminid) != MAX_ADMIN_LEVEL)
-    {
-        SendErrorMsg(adminid, "Samo vlasnik moze banovati admina!");
-        return 1;
-    }
+        return SendErrorMsg(adminid, "Samo vlasnik moze banovati admina!");
 
     new String: str_query_ban_insert = String: str_format(
         "INSERT INTO banned (banned_player, banned_admin, banned_reason) \
@@ -126,10 +108,7 @@ stock Ban_Remove(const string: name[], const adminid)
     );
 
     if (!cache_num_rows())
-    {
-        SendErrorMsgF(adminid, "Igrac %s nije banovan!", string: name);
-        return 1;
-    }
+        return SendErrorMsgF(adminid, "Igrac %s nije banovan!", string: name);
 
     new String: str_query_ban_remove = String: str_format(
         "DELETE FROM banned WHERE banned_player = '%e'", string: name
@@ -146,10 +125,7 @@ stock Ban_Remove(const string: name[], const adminid)
 Dialog:DIALOG_BAN(const playerid, response, listitem, string: inputtext[])
 {
     if (!response || response)
-    {
-        Kick(playerid);
-        return 1;
-    }
+        return Kick(playerid);
 
     return 1;
 }

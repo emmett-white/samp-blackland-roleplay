@@ -9,7 +9,9 @@
 
 #include <YSI_Coding\y_hooks>
 
-/** Variables */
+// ---
+// Variables
+// ---
 const
     MAX_VEHICLE_FUEL =  (45),
     FUEL_DOWN_TIME =    (50000);
@@ -236,7 +238,9 @@ new gVehicleNames[][] =
 	"Utility Trailer"
 };
 
-/** Hooks */
+// ---
+// Hooks
+// ---
 hook OnPlayerConnect(playerid)
 {
     gPlayerVehicleFuel[playerid] = MAX_VEHICLE_FUEL;
@@ -248,10 +252,7 @@ hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
     if (PRESSED(KEY_YES) && IsPlayerInAnyVehicle(playerid))
     {
         if (Bit_Get(Bit: Bit_VehicleLights, playerid))
-        {
-            Speedo_SetVehicleLights(playerid, false);
-            return 1;
-        }
+            return Speedo_SetVehicleLights(playerid, false);
 
         Speedo_SetVehicleLights(playerid);
     }
@@ -262,14 +263,14 @@ hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 hook OnPlayerStateChange(playerid, newstate, oldstate)
 {
     if (Player_IsSpawned(playerid))
-    {
         UI_CreateSpeedoTextDraws(playerid, (newstate == PLAYER_STATE_DRIVER ? (true) : (false)));
-    }
 
     return Y_HOOKS_CONTINUE_RETURN_1;
 }
 
-/** Functions */
+// ---
+// Functions
+// ---
 stock UI_CreateSpeedoTextDraws(const playerid, bool: status = true)
 {
     if (!status)
@@ -458,9 +459,7 @@ stock UI_CreateSpeedoTextDraws(const playerid, bool: status = true)
         PlayerTextDrawSetPreviewRot(playerid, speedoTextDraw[playerid][16], 90.000000, 0.000000, 0.000000, 1.000000);
 
         for (new i = 0; i < 17; ++i)
-        {
             PlayerTextDrawShow(playerid, PlayerText: speedoTextDraw[playerid][i]);
-        }
 
         PlayerTextDrawHide(playerid, speedoTextDraw[playerid][14]);
         PlayerTextDrawHide(playerid, speedoTextDraw[playerid][15]);
@@ -519,6 +518,7 @@ stock Speedo_SetVehicleLights(const playerid, bool: status = true)
         PlayerTextDrawHide(playerid, speedoTextDraw[playerid][15]);
         PlayerTextDrawShow(playerid, speedoTextDraw[playerid][16]);
     }
+
     else
     {
         PlayerTextDrawShow(playerid, speedoTextDraw[playerid][14]);
@@ -558,7 +558,9 @@ stock GetVehicleHP(const vehicleid)
 
 stock Speedo_GetPlayerVehicleFuel(const playerid) return gPlayerVehicleFuel[playerid];
 
-/** Timer update vehicle status */
+// ---
+// Timer update vehicle status
+// ---
 PTASK__ Speedo_UpdateVehStatus[1000](playerid)
 {
     if (IsPlayerInAnyVehicle(playerid))

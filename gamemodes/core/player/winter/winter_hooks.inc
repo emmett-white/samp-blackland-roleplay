@@ -9,30 +9,33 @@
 
 #include <YSI_Coding\y_hooks>
 
-/** Variables */
+// ---
+// Variables
+// ---
 static snowObj[942];
 
-/** Functions */
+// ---
+// Functions
+// ---
 stock Winter_ShowSnow(const playerid, bool: status = true)
 {
     if (!status)
     {
         for(new i = 0; i < sizeof(snowObj); ++i)
-        {
             Streamer_RemoveArrayData(STREAMER_TYPE_OBJECT, snowObj[i], E_STREAMER_PLAYER_ID, playerid);
-        }
+
         return 1;
     }
 
     for(new i = 0; i < sizeof(snowObj); ++i)
-    {
         Streamer_AppendArrayData(STREAMER_TYPE_OBJECT, snowObj[i], E_STREAMER_PLAYER_ID, playerid);
-    }
 
     return 1;
 }
 
-/** Hooks */
+// ---
+// Hooks
+// ---
 hook OnPlayerUpdate(playerid)
 {
     if (Winter_GetSnowflakeStatus(playerid))

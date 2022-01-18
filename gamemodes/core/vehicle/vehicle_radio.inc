@@ -9,7 +9,9 @@
 
 #include <YSI_Coding\y_hooks>
 
-/** Variables */
+// ---
+// Variables
+// ---
 static
     gRadioStatus[MAX_PLAYERS],
     gPlayingSong[MAX_PLAYERS];
@@ -21,14 +23,14 @@ static gRadioStations[][] =
     "http://stream.rtvbn.com:8522"
 };
 
-/** Hooks */
+// ---
+// Hooks
+// ---
 hook OnPlayerStateChange(playerid, newstate, oldstate)
 {
     if (newstate == PLAYER_STATE_ONFOOT && gRadioStatus[playerid])
-    {
         Vehicle_SetRadioStatus(playerid, false);
-    }
-    
+
     return Y_HOOKS_CONTINUE_RETURN_1;
 }
 
@@ -40,7 +42,9 @@ hook OnPlayerConnect(playerid)
     return Y_HOOKS_CONTINUE_RETURN_1;
 }
 
-/** Get/Set functions */
+// ---
+// Get/Set Functions
+// ---
 stock Vehicle_GetRadioStatus(const playerid) return gRadioStatus[playerid];
 stock Vehicle_SetRadioStatus(const playerid, bool: status)
 {
@@ -58,9 +62,7 @@ stock Vehicle_SetRadioStatus(const playerid, bool: status)
     }
 
     if (!IsPlayerInAnyVehicle(playerid))
-    {
         return SendErrorMsg(playerid, "Niste u vozilu!");
-    }
 
     gRadioStatus[playerid] = 1;
     SendServerMsg(playerid, "Upalili ste radio.");
@@ -71,9 +73,7 @@ stock Vehicle_SetRadioStatus(const playerid, bool: status)
 stock Vehicle_FindStation(const playerid)
 {
     if (!IsPlayerInAnyVehicle(playerid))
-    {
         return SendErrorMsg(playerid, "Niste u vozilu!");
-    }
 
     if (gRadioStatus[playerid])
     {

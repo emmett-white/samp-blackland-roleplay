@@ -7,14 +7,18 @@
 #endif
 #define _ui_loading_included
 
-/** Variables */
+// ---
+// Variables
+// ---
 static
     PlayerText: loadingTextDraw[MAX_PLAYERS][2] = {PlayerText: INVALID_PLAYER_TEXT_DRAW,...},
     PlayerBar: loadingBar[MAX_PLAYERS] = {PlayerBar: INVALID_PLAYER_BAR_ID,...},
     
     loadingBarTimer[MAX_PLAYERS];
 
-/** Timer */
+// ---
+// Timer
+// ---
 forward LoadingBarTimer(const playerid, const connection);
 public LoadingBarTimer(const playerid, const connection)
 {
@@ -31,9 +35,7 @@ public LoadingBarTimer(const playerid, const connection)
     }
 
     if (connection)
-    {
         Account_CheckStatus(playerid);
-    }
 
     SetPlayerProgressBarValue(playerid, PlayerBar: loadingBar[playerid], Float: 0.0);
     UI_CreateLoadingTextDraw(playerid, false, connection);
@@ -42,7 +44,9 @@ public LoadingBarTimer(const playerid, const connection)
     return 1;
 }
 
-/** Functions */
+// ---
+// Functions
+// ---
 stock UI_CreateLoadingTextDraw(const playerid, bool: status = true, connection)
 {
     if (!status)

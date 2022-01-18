@@ -12,11 +12,9 @@
 hook OnPlayerText(playerid, text[])
 {
     if (Mute_GetTime(playerid))
-    {
         return SendErrorMsgF(playerid,
             "Ne mozete pricati jer ste mutirani jos %d minut/a!", Mute_GetTime(playerid)
         ), 0;
-    }
 
     static string: str[YSI_MAX_STRING];
 

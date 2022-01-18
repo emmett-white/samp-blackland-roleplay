@@ -1,4 +1,6 @@
-/** Macro settings */
+// ---
+// Macro settings
+// ---
 #define YSI_YES_HEAP_MALLOC
 #define YSI_NO_VERSION_CHECK
 #define YSI_NO_MODE_CACHE
@@ -10,7 +12,9 @@
 #define FOREACH_NO_STREAMED
 #define PP_SYNTAX_AWAIT
 
-/** Libraries */
+// ---
+// Libraries
+// ---
 #include <a_samp>
 #include <a_mysql>
 #include <crashdetect>
@@ -38,7 +42,9 @@
 #include <jit>
 #include <easy-dialog>
 
-/** Modules */
+// ---
+// Modules
+// ---
 #include <database_main>
 #include <settings>
 #include <cmd_process>
@@ -69,7 +75,9 @@ main()
 	printf("[INFO]: Mod se uspesno ucitao u %s", string: ts_fmt);
 }
 
-/** Callbacks */
+// ---
+// Callbacks
+// ---
 forward OnJITCompile();
 forward Bind_OnPlayerDisconnect(
 	CallbackHandler: self, Handle: task_handle, Task: task, const orig_playerid, const playerid
@@ -99,9 +107,7 @@ public Bind_OnPlayerDisconnect(
         handle_release(task_handle);
 
         if(handle_linked(task_handle))
-		{
-            task_delete(task);
-        }
+			task_delete(task);
     }
 }
 

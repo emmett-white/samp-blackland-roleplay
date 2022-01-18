@@ -7,7 +7,9 @@
 #endif
 #define _house_variables_included
 
-/** Variables */
+// ---
+// Variables
+// ---
 const MAX_HOUSES = 200;
 new
     houseID[MAX_HOUSES],
@@ -30,7 +32,9 @@ new
     Float: houseIntY[MAX_HOUSES],
     Float: houseIntZ[MAX_HOUSES];
 
-/** Functions */
+// ---
+// Functions
+// ---
 stock House_GetMaxHouses() return MAX_HOUSES;
 stock House_GetOwner(const houseid) return houseOwner[houseid];
 stock House_GetDescription(const houseid) return houseDescription[houseid];
@@ -106,9 +110,7 @@ stock House_SellAll()
     for (new i = 0; i < MAX_HOUSES; ++i)
     {
         if (!houseIDUsed[i])
-        {
             return 0;
-        }
 
         houseIDUsed[i] = 0;
         strcopy(string: houseOwner[i], "Niko");
@@ -197,12 +199,8 @@ stock Float: House_GetPos(const houseid, index)
 stock House_GetNextID()
 {
     for (new i = 0; i < MAX_HOUSES; ++i)
-    {
 		if (!houseIDUsed[i])
-        {
-			return i;
-        }
-	}
+            return i;
 
 	return MAX_HOUSES;
 }
@@ -210,12 +208,8 @@ stock House_GetNextID()
 stock House_GetNearby(const playerid)
 {
     for (new i = 0; i < MAX_HOUSES; ++i)
-    {
         if (IsPlayerInRangeOfPoint(playerid, Float: 2.0, Float: houseExtX[i], Float: houseExtY[i], Float: houseExtZ[i]))
-        {
             return i;
-        }
-    }
 
 	return MAX_HOUSES;
 }

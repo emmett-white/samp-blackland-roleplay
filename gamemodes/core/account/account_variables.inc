@@ -7,7 +7,9 @@
 #endif
 #define _account_variables_included
 
-/** Variables */
+// ---
+// Variables
+// ---
 new
     accountUniqueID[MAX_PLAYERS],
     accountCharUniqueID[MAX_PLAYERS],
@@ -33,7 +35,9 @@ static
     accountWeed[MAX_PLAYERS],
     accountHouse[MAX_PLAYERS];
 
-/** Get/Set functions */
+// ---
+// Get/Set functions
+// ---
 stock Account_GetPlayerMoney(const playerid) return accountMoney[playerid];
 stock Account_GetPlayerSkin(const playerid) return accountSkin[playerid];
 stock Account_GetPlayerLevel(const playerid) return accountLevel[playerid];

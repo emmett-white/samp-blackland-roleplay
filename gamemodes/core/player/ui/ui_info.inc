@@ -7,20 +7,26 @@
 #endif
 #define _ui_info_included
 
-/** Variables */
+// ---
+// Variables
+// ---
 static
     PlayerText: infoTextDraw[MAX_PLAYERS][2] = {PlayerText: INVALID_PLAYER_TEXT_DRAW,...},
     gPlayerMessageSent[MAX_PLAYERS],
     gMessageDestroyInterval = 5000;
 
-/** Timer */
+// ---
+// Timer
+// ---
 TIMER__ DestroyInfoMessage[gMessageDestroyInterval](playerid)
 {
     UI_CreateInfoTextDraws(playerid, false);
     gPlayerMessageSent[playerid] = 0;
 }
 
-/** Functions */
+// ---
+// Functions
+// ---
 stock UI_CreateInfoTextDraws(const playerid, bool: status = true)
 {
     if (!status)
@@ -52,28 +58,20 @@ stock UI_CreateInfoTextDraws(const playerid, bool: status = true)
 stock UI_SendInfoMessage(const playerid, const string: message[], interval, va_args<>)
 {
     if (gPlayerMessageSent[playerid])
-    {
         return 0;
-    }
 
     UI_CreateInfoTextDraws(playerid);
     gMessageDestroyInterval = interval;
     
     new Float: tmpY = strlen(message);
     if (tmpY > 128)
-    {
         return 0;
-    }
 
     else if (tmpY < 40)
-    {
         tmpY = (tmpY * 4.5);
-    }
 
     else
-    {
         tmpY = (tmpY * 3.5);
-    }
 
     infoTextDraw[playerid][0] = CreatePlayerTextDraw(playerid, 25.000000, 214.733352, "LD_SPAC:white");
     PlayerTextDrawTextSize(playerid, infoTextDraw[playerid][0], tmpY, 18.000000);

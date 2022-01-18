@@ -114,7 +114,8 @@ timer Account_SetPlayerSpawn[2000](playerid, type)
 {
     switch (type)
     {
-        case 1: {
+        case 1:
+        {
             SetPlayerVirtualWorld(playerid, 0);
             SetPlayerInterior(playerid, 0);
 
@@ -167,9 +168,7 @@ timer Account_SetPlayerSpawn[2000](playerid, type)
             Player_SetNewbieRank(playerid);
 
             if (Admin_GetLevel(playerid))
-            {
                 SetPlayerColor(playerid, 0x00000000);
-            }
         }
     }
 

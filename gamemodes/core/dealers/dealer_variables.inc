@@ -7,7 +7,9 @@
 #endif
 #define _dealer_variables_included
 
-/** Variables */
+// ---
+// Variables
+// ---
 const MAX_DEALERS = 50;
 
 new
@@ -25,15 +27,15 @@ new
     
     string: dealerName[MAX_DEALERS][MAX_PLAYER_NAME];
 
-/** Functions */
+// ---
+// Functions
+// ---
 stock Dealer_Create(const skin, const string: name[], Float: x, Float: y, Float: z, Float: a)
 {
     new id = Iter_Alloc(Iter_Dealers);
 
     if (!(1 <= skin <= 299))
-    {
         return 0;
-    }
 
     dealerSkin[id] = skin;
     dealerX[id] = Float: x, dealerY[id] = Float: y, dealerZ[id] = Float: z, dealerA[id] = Float: a;
@@ -76,9 +78,7 @@ stock Dealer_Goto(const playerid, const dealerid)
     );
 
     if (!cache_num_rows())
-    {
         return 0;
-    }
 
     SetPlayerPos(playerid, (Float: dealerX[(dealerid - 1)] + 2.0), Float: dealerY[(dealerid - 1)], Float: dealerZ[(dealerid - 1)]);
 
@@ -88,12 +88,8 @@ stock Dealer_Goto(const playerid, const dealerid)
 stock Dealer_Nearby(const playerid)
 {
     foreach (new i: Iter_Dealers)
-    {
         if (IsPlayerInRangeOfPoint(playerid, Float: 2.0, Float: dealerX[i], Float: dealerY[i], Float: dealerZ[i]))
-        {
             return 1;
-        }
-    }
 
     return 0;
 }
@@ -103,14 +99,10 @@ stock Dealer_NearbyID(const playerid)
     foreach (new i: Iter_Dealers)
     {
         if (dealerX[i] == 0.0)
-        {
             continue;
-        }
 
         if (IsPlayerInRangeOfPoint(playerid, Float: 2.0, Float: dealerX[i], Float: dealerY[i], Float: dealerZ[i]))
-        {
             return i;
-        }
     }
 
     return -1;

@@ -9,12 +9,16 @@
 
 #include <YSI_Coding\y_hooks>
 
-/** Variables */
+// ---
+// Variables
+// ---
 static
     gCheckPlayerField[MAX_PLAYERS][6],
     gPlayerLoginAttempts[MAX_PLAYERS];
 
-/** Hooks */
+// ---
+// Hooks
+// ---
 hook OnPlayerConnect(playerid)
 {
     if (!IsValidNickName(ReturnPlayerName(playerid)))
@@ -101,12 +105,8 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
     if (playertextid == PlayerText: UI_ClickRegisterTextDraw(playerid, 15))
     {
         for (new i = 0; i < 6; ++i)
-        {
             if (!gCheckPlayerField[playerid][i])
-            {
                 return SendErrorMsg(playerid, "Niste popunili sva polja!");
-            }
-        }
 
         Account_SetPlayerMoney(playerid, 10000);
         Account_SetPlayerLevel(playerid, 1);
@@ -132,15 +132,10 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
 Dialog:DIALOG_PASSWORD(const playerid, response, listitem, string: inputtext[])
 {
     if (!response)
-    {
-        Kick(playerid);
-        return 1;
-    }
+        return Kick(playerid);
 
     if (!(MIN_PASSWORD_LENGTH <= strlen(string: inputtext) <= MAX_PASSWORD_LENGTH))
-    {
         return SendErrorMsg(playerid, "Prekratka ili predugacka lozinka!");
-    }
 
     strcopy(accountPassword[playerid], string: inputtext);
 
@@ -166,24 +161,18 @@ Dialog:DIALOG_PASSWORD(const playerid, response, listitem, string: inputtext[])
 Dialog:DIALOG_EMAIL(const playerid, response, listitem, string: inputtext[])
 {
     if (!response)
-    {
         return 1;
-    }
 
     new Regex: regex = Regex_New("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
     if (!Regex_Check(string: inputtext, Regex: regex))
-    {
         return SendErrorMsg(playerid, "Unesite vazecu e-mail adresu!");
-    }
 
     Account_SetPlayerEmail(playerid, string: inputtext);
     
     if (strlen(string: inputtext) < 24)
-    {
         va_PlayerTextDrawSetString(playerid, PlayerText: UI_ClickRegisterTextDraw(playerid, 10),
             "%s", Account_GetPlayerEmail(playerid)
         );
-    }
 
     gCheckPlayerField[playerid][1] = 1;
 
@@ -193,14 +182,10 @@ Dialog:DIALOG_EMAIL(const playerid, response, listitem, string: inputtext[])
 Dialog:DIALOG_AGES(const playerid, response, listitem, string: inputtext[])
 {
     if (!response)
-    {
         return 1;
-    }
 
     if (!(12 <= strval(string: inputtext) <= 50))
-    {
         return SendErrorMsg(playerid, "Ne mozete biti mladji od 12 i stariji od 50 godina!");
-    }
 
     PlayerTextDrawSetString(playerid, PlayerText: UI_ClickRegisterTextDraw(playerid, 12), inputtext);
     gCheckPlayerField[playerid][2] = 1;
@@ -211,9 +196,7 @@ Dialog:DIALOG_AGES(const playerid, response, listitem, string: inputtext[])
 Dialog:DIALOG_COUNTRY(const playerid, response, listitem, string: inputtext[])
 {
     if (!response)
-    {
         return 1;
-    }
 
     PlayerTextDrawSetString(playerid, PlayerText: UI_ClickRegisterTextDraw(playerid, 11),
         (!listitem ? ("Srbija") : (listitem == 1 ? ("Bosna i Hercegovina") :
@@ -239,9 +222,7 @@ Dialog:DIALOG_SEX(const playerid, response, listitem, string: inputtext[])
 Dialog:DIALOG_SKIN(const playerid, response, listitem, string: inputtext[])
 {
     if (!response)
-    {
         return 1;
-    }
 
     static selectSkin;
     if (!accountSex[playerid])
@@ -276,9 +257,7 @@ Dialog:DIALOG_SKIN(const playerid, response, listitem, string: inputtext[])
 Dialog:DIALOG_LOGIN(const playerid, response, listitem, string: inputtext[])
 {
     if (!response)
-    {
         return Kick(playerid);
-    }
 
     if (!strcmp(inputtext, Account_GetPlayerPassword(playerid), false))
     {
@@ -295,9 +274,7 @@ Dialog:DIALOG_LOGIN(const playerid, response, listitem, string: inputtext[])
         SendErrorMsgF(playerid, "Preostalo pokusaja: %d/%d!", gPlayerLoginAttempts[playerid], MAX_LOGIN_ATTEMPTS);
 
         if (gPlayerLoginAttempts[playerid] == MAX_LOGIN_ATTEMPTS)
-        {
             return Kick(playerid);
-        }
     }
 
     return 1;

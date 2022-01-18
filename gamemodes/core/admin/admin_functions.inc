@@ -7,7 +7,9 @@
 #endif
 #define _admin_functions_included
 
-/** Variables */
+// ---
+// Variables
+// ---
 static
     adminLevel[MAX_PLAYERS],
     adminCode[MAX_PLAYERS],
@@ -19,19 +21,16 @@ static
     BitArray: Bit_AdminDuty<MAX_PLAYERS>,
     BitArray: Bit_AdminVehicle<MAX_PLAYERS>;
 
-
-/** Functions */
+// ---
+// Functions
+// ---
 stock Admin_SetLevel(const targetid, const adminid, const level = 0)
 {
     if (level > MAX_ADMIN_LEVEL)
-    {
         return SendErrorMsg(adminid, "Maksimalni admin level je 4!");
-    }
 
     if (Admin_GetLevel(targetid) == level)
-    {
         return SendErrorMsg(adminid, "Taj igrac je vec taj admin level!");
-    }
 
     Admin_SetPlayerLevel(targetid, level);
     Admin_SetPlayerCode(targetid, (!level ? (0) : (random(1000000))));
@@ -84,18 +83,14 @@ stock Admin_SetPlayerCode(const playerid, const code)
 stock Admin_AddCommandToList(const level, const string: command[])
 {
     if (!(1 <= level <= MAX_ADMIN_LEVEL))
-    {
         return 0;
-    }
 
     new
         string: tmpString[152],
         freeid = Iter_Alloc(Iter_AdminCommands[level - 1]);
 
     if (freeid == ITER_NONE)
-    {
         return ITER_NONE;
-    }
 
     format(string: tmpString, sizeof tmpString, "%s\n", string: command);
     strcat(adminCommands[level - 1][freeid], string: tmpString);
@@ -110,9 +105,7 @@ stock Admin_ShowAdminCmdsOfLevel(const playerid, const level)
         string: tmpString[50];
 
     foreach (new i : Iter_AdminCommands[level])
-    {
         strcat(string: acmds, adminCommands[level][i]);
-    }
 
     format(string: tmpString, sizeof tmpString, "%s", Admin_GetRankNameFromLevel(level));
     Dialog_Show(playerid, "DIALOG_ADMINCMDSLEVEL", DIALOG_STYLE_LIST, string: tmpString, string: acmds, "Ok", "Zatvori");
@@ -136,12 +129,8 @@ stock Admin_GetRankNameFromLevel(level)
 stock Admin_SendMessage(const color, const string: message[], va_args<>)
 {
     foreach (new i: Player)
-    {
         if (Admin_GetLevel(i))
-        {
             return SendClientMessage(i, color, va_return(message, va_start<2>));
-        }
-    }
 
     return 0;
 }

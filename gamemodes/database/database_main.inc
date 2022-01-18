@@ -9,19 +9,18 @@
 
 #include <YSI_Coding\y_hooks>
 
-/**
-  * Variables
- */
+// ---
+// Variables
+// ---
 new MySQL: db_handle = MYSQL_INVALID_HANDLE;
 #define MySQL_GetHandle() db_handle
 
-/**
-  * Hooks
- */
+// ---
+// Hooks
+// ---
 hook OnGameModeInit()
 {
 	CreateDatabaseConnection();
-    // pp_use_funcidx(true);
 
 	return Y_HOOKS_CONTINUE_RETURN_1;
 }
@@ -29,16 +28,14 @@ hook OnGameModeInit()
 hook OnGameModeExit()
 {
     if (!mysql_close(db_handle))
-    {
         print("[MySQL]: Nemoguce zavrsiti konekciju sa databazom.");
-    }
 
     return Y_HOOKS_CONTINUE_RETURN_1;
 }
 
-/**
-  * Functions
- */
+// ---
+// Functions
+// ---
 static CreateDatabaseConnection()
 {
 	static
@@ -47,19 +44,13 @@ static CreateDatabaseConnection()
         env_database[14];
 
 	if (Env_Has("MYSQL_HOSTNAME"))
-    {
-		Env_Get("MYSQL_HOSTNAME", env_hostname);
-	}
+        Env_Get("MYSQL_HOSTNAME", env_hostname);
 
 	if (Env_Has("MYSQL_USERNAME"))
-    {
-		Env_Get("MYSQL_USERNAME", env_username);
-	}
+        Env_Get("MYSQL_USERNAME", env_username);
 
 	if (Env_Has("MYSQL_DATABASE"))
-    {
-		Env_Get("MYSQL_DATABASE", env_database);
-	}
+        Env_Get("MYSQL_DATABASE", env_database);
 
 	new MySQLOpt: options = mysql_init_options();
     mysql_set_option(options, AUTO_RECONNECT, true);

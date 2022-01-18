@@ -9,11 +9,15 @@
 
 #include <YSI_Coding\y_hooks>
 
-/** Variables */
+// ---
+// Variables
+// ---
 const MAX_LSPD_VEHICLES = (11);
 static lspdVehicle[MAX_LSPD_VEHICLES];
 
-/** Hooks */
+// ---
+// Hooks
+// ---
 hook OnGameModeInit()
 {
     lspdVehicle[0] = AddStaticVehicleEx(596, Float: 1555.5271, Float: -1614.5618, Float: 13.0836, Float: 181.0543, 0, 0, 0, true);
@@ -29,12 +33,10 @@ hook OnGameModeInit()
     lspdVehicle[10] = AddStaticVehicleEx(522, Float: 1605.9331, Float: -1614.1830, Float: 12.9061, Float: 84.7595, 0, 0, 0, true);
 
     for (new i = 0; i < MAX_LSPD_VEHICLES; ++i)
-    {
         CreateDynamic3DTextLabel("ORGANIZACIJA: "WHITE"Policija", MAIN_COLOR_HEX,
             Float: 0.0, Float: 0.0, Float: 0.0, Float: 20.0,
             .attachedvehicle = lspdVehicle[i]
         );
-    }
 
     return Y_HOOKS_CONTINUE_RETURN_1;
 }
@@ -54,12 +56,8 @@ hook OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 stock Organization_IsPoliceVeh(const vehicleid)
 {
     for (new i = 0; i < sizeof lspdVehicle; ++i)
-    {
         if (vehicleid == lspdVehicle[i])
-        {
             return 1;
-        }
-    }
 
     return 0;
 }

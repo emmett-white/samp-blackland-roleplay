@@ -7,7 +7,9 @@
 #endif
 #define _org_main_included
 
-/** Variables */
+// ---
+// Variables
+// ---
 const
     ORGANIZATION_NONE =     (0),
     ORGANIZATION_LSPD =     (1);
@@ -16,7 +18,9 @@ static
     orgPlayerID[MAX_PLAYERS],
     orgPlayerLeader[MAX_PLAYERS];
 
-/** Get/Set Functions */
+// ---
+// Get/Set functions
+// ---
 stock Organization_SetPlayerOrgID(const playerid, const orgid, bool: leader = false)
 {
     orgPlayerID[playerid] = orgid;
@@ -48,9 +52,13 @@ stock Organization_SetPlayerLeader(const playerid, const status)
 stock Organization_GetPlayerOrgID(const playerid) return orgPlayerID[playerid];
 stock Organization_IsPlayerLeader(const playerid) return orgPlayerLeader[playerid];
 
-/** Return org ids */
+// ---
+// Return org IDs
+// ---
 stock Organization_NONE() return ORGANIZATION_NONE;
 stock Organization_LSPD() return ORGANIZATION_LSPD;
 
-/** Include other modules */
+// ---
+// Call modules
+// ---
 #include <org_lspd>

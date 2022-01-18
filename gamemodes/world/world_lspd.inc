@@ -9,7 +9,6 @@
 
 #include <YSI_Coding\y_hooks>
 
-/** Hooks */
 hook OnPlayerConnect(playerid)
 {
     RemoveBuildingForPlayer(playerid, 4063, 1578.4688, -1676.4219, 13.0703, 0.25);

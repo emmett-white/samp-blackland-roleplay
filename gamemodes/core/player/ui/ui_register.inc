@@ -9,10 +9,14 @@
 
 #include <YSI_Coding\y_hooks>
 
-/** Variables */
+// ---
+// Variables
+// ---
 static PlayerText: registerTextDraw[MAX_PLAYERS][27] = {INVALID_PLAYER_TEXT_DRAW,...};
 
-/** Functions */
+// ---
+// Functions
+// ---
 stock UI_ClickRegisterTextDraw(const playerid, const index) return _:registerTextDraw[playerid][index];
 stock UI_CreateRegisterTextDraws(const playerid, bool: status = true)
 {
@@ -292,9 +296,7 @@ stock UI_CreateRegisterTextDraws(const playerid, bool: status = true)
     PlayerTextDrawSetProportional(playerid, registerTextDraw[playerid][26], 1);
 
     for (new i = 0; i < 27; ++i)
-    {
         PlayerTextDrawShow(playerid, PlayerText: registerTextDraw[playerid][i]);
-    }
     
     SelectTextDraw(playerid, 0x000000FF);
 

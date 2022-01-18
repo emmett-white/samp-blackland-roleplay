@@ -7,7 +7,9 @@
 #endif
 #define _winter_functions_included
 
-/** Variables */
+// ---
+// Variables
+// ---
 static
     snowObj[MAX_PLAYERS],
 
@@ -17,7 +19,9 @@ static
     BitArray: PLAYER_CAP<MAX_PLAYERS>,
     BitArray: PLAYER_COLDBREATH<MAX_PLAYERS>;
 
-/** Timer */
+// ---
+// Timer
+// ---
 PTASK__ ColdBreath[2500](playerid)
 {
     if (Winter_GetColdBreathStatus(playerid) && !GetPlayerInterior(playerid) && !GetPlayerVirtualWorld(playerid))
@@ -27,7 +31,9 @@ PTASK__ ColdBreath[2500](playerid)
     }
 }
 
-/** Functions */
+// ---
+// Functions
+// ---
 stock Winter_CreateSnowObject(const modelid, Float:x, Float:y, Float:z, Float:rx, Float:ry, Float:rz, vw, ent, pid, Float:ddist=300.0, Float:vrdist=300.0)
 {
 	new object = CreateDynamicObject(modelid,
@@ -36,9 +42,7 @@ stock Winter_CreateSnowObject(const modelid, Float:x, Float:y, Float:z, Float:rx
     );
 
 	for(new i = 0; i < 15; ++i)
-    {
         SetDynamicObjectMaterial(object, i, 17944, "lngblok_lae2", "white64bumpy", 0);
-    }
 
 	return object;
 }
@@ -63,24 +67,16 @@ stock Winter_StatusAll(const playerid, bool: status = true)
     }
 
     if (Winter_GetSnowflakeStatus(playerid))
-    {
         Winter_SnowflakeStatus(playerid, false);
-    }
 
     else if (Winter_GetSnowObjStatus(playerid))
-    {
         Winter_SnowObjStatus(playerid, false);
-    }
 
     else if (Winter_GetSnowCapStatus(playerid))
-    {
         Winter_SnowCapStatus(playerid, false);
-    }
 
     else if (Winter_GetColdBreathStatus(playerid))
-    {
         Winter_ColdBreathStatus(playerid, false);
-    }
 
     Winter_SnowObjStatus(playerid);
     Winter_SnowflakeStatus(playerid);
